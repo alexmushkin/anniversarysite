@@ -1,0 +1,1962 @@
+/* ==========================================================================
+   Carolina Anniversary Site - CSS Design System & Visuals (Refined Balance)
+   ========================================================================== */
+
+/* Design Tokens & Theme Variables */
+:root {
+  /* Retro Pop & Sticker Theme Palette */
+  --pastel-cream: #eedefa; /* Lilac-pink cute base color */
+  --royal-blue: #003bfb; /* Saturated Cafe Robot blue */
+  --coral-orange: #ff6b4a; /* Playful coral orange */
+  --sky-blue: #74b9ff; /* Clear whimsical sky blue */
+  --magical-violet: #a29bfe; /* Retro magic lavender */
+  --pastel-yellow: #ffee58; /* Warm sun yellow */
+  --pastel-pink: #ffebdf; /* Soft coral peach cream */
+  --card-bg-light: #ffffff; /* Bright card base */
+  
+  /* Text and Outlines */
+  --text-primary: #1d0f39; /* Deep cosmic navy primary text & outline color */
+  --text-secondary: #4a3773; /* Medium cosmic navy-plum for secondary text */
+  --gold-accent: #fbc531; /* Bright gold-yellow for vector stars */
+  
+  /* Outlines and Retro Drop-shadows */
+  --bold-border: 2.5px solid var(--text-primary);
+  --shadow-offset: 6px 6px 0px var(--text-primary);
+  --shadow-offset-hover: 3px 3px 0px var(--text-primary);
+  --shadow-offset-active: 1px 1px 0px var(--text-primary);
+  
+  /* Redefine standard card systems */
+  --card-bg: var(--card-bg-light);
+  --card-border: var(--bold-border);
+  --card-shadow: var(--shadow-offset);
+  
+  /* Fonts */
+  --font-sans: 'Fredoka', 'Quicksand', sans-serif;
+  --font-serif: 'Fraunces', 'Playfair Display', serif;
+  --font-grotesk: 'Space Grotesk', sans-serif;
+
+  /* Snappy Retro Interactions */
+  --transition-smooth: 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-spring: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  --transition-snappy: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.1s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
+}
+
+/* Base Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  background-color: var(--pastel-cream);
+}
+
+
+/* ==========================================================================
+   Background & Dreamy Orbs
+   ========================================================================== */
+.app-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-color: var(--pastel-cream);
+  background-image: radial-gradient(rgba(29, 15, 57, 0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  overflow: hidden;
+}
+
+/* Glowing Ambient Orbs - disabled for pop graphic aesthetic */
+.glow-orb {
+  display: none;
+}
+
+
+/* Interactive Canvas Layer */
+#fun-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   Parallax Floating Accents (Dreamy & Magical)
+   ========================================================================== */
+.floating-accent {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.5rem;
+  color: var(--gold-accent);
+  opacity: 0.35;
+  z-index: -1;
+  will-change: transform;
+}
+
+.accent-1 { top: 16%; left: 10%; animation: floatingAcc 7s ease-in-out infinite; }
+.accent-2 { top: 20%; right: 12%; font-size: 1.8rem; animation: floatingAcc 9s ease-in-out infinite 1s; }
+.accent-3 { bottom: 25%; left: 8%; animation: floatingAcc 11s ease-in-out infinite 2s; }
+.accent-4 { bottom: 16%; right: 14%; font-size: 1.7rem; animation: floatingAcc 8s ease-in-out infinite 0.5s; }
+.accent-5 { top: 76%; left: 45%; animation: floatingAcc 10s ease-in-out infinite 1.5s; }
+
+@keyframes floatingAcc {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(6deg); }
+}
+
+/* ==========================================================================
+   Layout Containers & Wrappers (Login View)
+   ========================================================================== */
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  z-index: 1;
+  transition: opacity 0.6s ease;
+}
+
+.app-container.hidden {
+  display: none !important;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 410px;
+  perspective: 1000px;
+}
+
+/* ==========================================================================
+   Sophisticated Card Styles
+   ========================================================================== */
+.card {
+  background: var(--card-bg-light);
+  border: var(--bold-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-offset);
+  padding: 45px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Entry & Exit transitions via discrete transitions */
+.login-card {
+  display: flex;
+  opacity: 1;
+  background: #fffde6; /* Cozy warm retro yellow/cream */
+  transform: scale(1) translateY(0);
+  transition: 
+    display 0.6s allow-discrete, 
+    opacity 0.6s ease-out, 
+    transform 0.6s var(--transition-spring);
+  transition-behavior: allow-discrete;
+}
+
+/* Entry starting style when rendered */
+@starting-style {
+  .login-card {
+    opacity: 0;
+    transform: scale(0.94) translateY(30px);
+  }
+}
+
+/* Exit state */
+.login-card.hidden {
+  display: none;
+  opacity: 0;
+  transform: scale(0.92) translateY(-40px);
+}
+
+/* Header Text Styles */
+.card-header {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+/* Outlined Header Text Styles */
+.greeting-title {
+  font-family: var(--font-serif);
+  font-size: 3.4rem;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--royal-blue); /* Solid royal blue interior */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 3.5px 3.5px 0px var(--pastel-yellow); /* Yellow sticker shadow matching other blue texts */
+}
+
+/* ==========================================================================
+   Clean Input Groups
+   ========================================================================== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Increased vertical gap for comfortable label float space */
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 18px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-smooth);
+  pointer-events: none;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: var(--bold-border);
+  background: #ffffff;
+  border-radius: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  outline: none;
+  box-shadow: 2px 2px 0px var(--text-primary);
+  transition: var(--transition-snappy);
+}
+
+/* Input Hover & Focus Styles */
+.input-group input:hover {
+  background: #ffffff;
+  box-shadow: 4px 4px 0px var(--text-primary);
+  transform: translate(-1px, -1px);
+}
+
+.input-group input:focus {
+  background: #ffffff;
+  border-color: var(--royal-blue);
+  box-shadow: 5px 5px 0px var(--text-primary);
+  transform: translate(-2px, -2px);
+}
+
+/* Floating Label Animation */
+.input-group label {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%); /* Robust cross-browser vertical centering */
+  color: var(--text-secondary);
+  font-weight: 700;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+/* Shift labels upward when focused or filled */
+.input-group input:focus ~ label,
+.input-group input.filled ~ label {
+  transform: translate(-30px, -45px) scale(0.85); /* Clean vertical lift above the box */
+  font-weight: 700;
+  color: var(--royal-blue);
+}
+
+/* Shift active icons */
+.input-group input:focus ~ .input-icon {
+  color: var(--royal-blue);
+}
+
+/* Password Toggle Icon */
+.toggle-password {
+  position: absolute;
+  right: 18px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: var(--transition-snappy);
+}
+
+.toggle-password:hover {
+  color: var(--royal-blue);
+  transform: scale(1.1);
+}
+
+/* Hidden Utility class for toggle */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Retro Tactile Action Button (Cafe Robot Royal Blue)
+   ========================================================================== */
+.btn-unlock {
+  margin-top: 10px;
+  background: var(--royal-blue);
+  border: var(--bold-border);
+  border-radius: 12px;
+  padding: 16px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-offset);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-snappy);
+}
+
+.btn-unlock:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-offset-hover);
+  background-color: #1e53ff; /* slightly brighter blue on hover */
+}
+
+.btn-unlock:active {
+  transform: translate(4px, 4px);
+  box-shadow: var(--shadow-offset-active);
+}
+
+
+/* ==========================================================================
+   Form Feedback & Validation Animations
+   ========================================================================== */
+.feedback-message {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--error-color);
+  background: var(--error-bg);
+  border-radius: 10px;
+  padding: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 
+    height var(--transition-smooth), 
+    padding var(--transition-smooth), 
+    opacity var(--transition-smooth);
+}
+
+.feedback-message.active {
+  height: auto;
+  padding: 12px 14px;
+  opacity: 1;
+}
+
+/* Interactive shake animation on failure */
+.shake {
+  animation: wiggle 0.4s ease-in-out;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* ==========================================================================
+   Success Screen / Welcome Card (Retro Pop Sticker Style)
+   ========================================================================== */
+.success-card {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+  background: #ffffff;
+  border: var(--bold-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-offset);
+  transition: 
+    display 0.8s allow-discrete, 
+    opacity 0.8s ease-out, 
+    transform 0.8s var(--transition-spring);
+  transition-behavior: allow-discrete;
+  text-align: center;
+  align-items: center;
+}
+
+@starting-style {
+  .success-card {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+}
+
+.success-card.hidden {
+  display: none !important;
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.success-emoji-container {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.success-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--pastel-yellow);
+  border: 2px solid var(--text-primary);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0 var(--text-primary);
+}
+
+.success-emoji {
+  font-size: 2.2rem;
+  color: var(--text-primary);
+  z-index: 1;
+  text-shadow: 1.5px 1.5px 0 var(--pastel-cream);
+  animation: spinSlow 10s linear infinite;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background: #ffffff;
+  border: 2px solid var(--text-primary);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--royal-blue);
+  border-radius: 10px;
+  transition: width 3s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.status-text {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  animation: blinkStatus 1.5s infinite;
+}
+
+@keyframes blinkStatus {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+
+/* ==========================================================================
+   Home Section & Main Dashboard (Modern Minimalist & Playful)
+   ========================================================================== */
+.home-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 24px 60px 24px; /* Top padding to prevent navbar overlap */
+  z-index: 1;
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    display 0.8s allow-discrete, 
+    opacity 0.8s ease-out, 
+    transform 0.8s var(--transition-spring);
+  transition-behavior: allow-discrete;
+}
+
+/* Starting entry style for home page reveal */
+@starting-style {
+  .home-section {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+.home-section.hidden {
+  display: none !important;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ==========================================================================
+   Floating Navbar Styles
+   ========================================================================== */
+.home-navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 800px;
+  height: 72px;
+  background: #ffffff;
+  border: var(--bold-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-offset);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 100;
+}
+
+.nav-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--royal-blue); /* Solid royal blue interior */
+  letter-spacing: -0.02em;
+  text-shadow: 2.5px 2.5px 0px var(--pastel-yellow);
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+/* Tab Button Styling as Colorful Tactile Pills */
+.nav-tab {
+  background: #ffffff;
+  border: 2px solid var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 8px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 3px 3px 0px var(--text-primary);
+  transition: var(--transition-snappy);
+  text-transform: capitalize;
+  text-decoration: none; /* Remove browser default link underline */
+}
+
+
+.nav-tab:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0px var(--text-primary);
+}
+
+/* Custom Active Pill Colors based on screenshot aesthetic */
+.nav-tab[data-tab="gifts"].active {
+  background-color: var(--pastel-yellow);
+  color: var(--text-primary);
+}
+
+.nav-tab[data-tab="us"].active {
+  background-color: var(--magical-violet);
+  color: white;
+}
+
+.nav-tab[data-tab="dining"].active {
+  background-color: var(--coral-orange);
+  color: white;
+}
+
+.nav-tab[data-tab="milestones"].active {
+  background-color: var(--sky-blue);
+  color: var(--text-primary);
+}
+
+.nav-tab.active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--text-primary);
+}
+
+.nav-tab:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--text-primary);
+}
+
+
+/* ==========================================================================
+   Home Centerpiece & Content Grid
+   ========================================================================== */
+.home-content {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 35px;
+  align-items: center;
+}
+
+/* Centerpiece Illustration Wrapper - Stretches full-width for horizontal railway track sitting directly in full-width parent */
+.centerpiece-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 340px; /* Grand upscaled height for extra visual impact */
+  perspective: 1000px;
+  margin-top: 20px;
+}
+
+/* "To many more" text appearing above mattress stargazing field, riding in with mattress */
+.many-more-text {
+  position: absolute;
+  top: -45px; /* placed perfectly above the mattress frame and couple */
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--royal-blue);
+  text-shadow: 2.5px 2.5px 0 var(--pastel-yellow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out, transform 0.8s var(--transition-spring);
+  z-index: 10;
+  white-space: nowrap; /* Prevent ugly line wrapping on small screens */
+}
+
+/* Enabled and transitioned in ONLY on the 'Through the Years' active tab! */
+html.tab-us .many-more-text {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Highly Minimalist Golden Track */
+.mattress-track {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 25px;
+  cursor: pointer;
+}
+
+
+
+/* Bold solid outline for green grass field base line */
+.grass-field-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px; /* aligns mathematically with wheels rolling bottom surface */
+  height: 5px;
+  background-color: #4caf50; /* beautiful matching fresh grass green */
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  z-index: 1;
+}
+
+/* Graphic sticker-style grass blades along the field line */
+.grass-blades {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 28px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100vw;
+  align-items: flex-end;
+  pointer-events: none;
+  padding: 0;
+  overflow: visible; /* Let the organic curves flow freely */
+  z-index: 2;
+}
+
+.grass-blade {
+  display: block;
+  width: 3px; /* strictly thin! */
+  flex: 0 0 auto;
+  margin: 0 -1px; /* overlap slightly */
+  transform-origin: bottom center;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Variety 1: Tall left-curving blade (Light green) */
+.grass-blade:nth-child(6n+1) {
+  height: 24px;
+  width: 4px; /* slightly wider variant */
+  background-color: #8dc63f;
+  border-top-left-radius: 100% 120%;
+  border-top-right-radius: 0% 0%;
+  border-bottom-right-radius: 100% 30%;
+  transform: rotate(-10deg) skewX(-12deg) scale(1.05);
+  z-index: 3;
+}
+
+/* Variety 2: Medium right-curving blade (Medium green) */
+.grass-blade:nth-child(6n+2) {
+  height: 18px;
+  width: 3px;
+  background-color: #4caf50;
+  border-top-right-radius: 100% 120%;
+  border-top-left-radius: 0% 0%;
+  border-bottom-left-radius: 100% 30%;
+  transform: rotate(8deg) skewX(10deg) scale(0.95);
+  z-index: 2;
+}
+
+/* Variety 3: Short straight blade (Dark green) */
+.grass-blade:nth-child(6n+3) {
+  height: 13px;
+  width: 2px;
+  background-color: #398439;
+  border-top-left-radius: 100% 180%;
+  border-top-right-radius: 100% 180%;
+  transform: rotate(2deg) scale(0.9);
+  z-index: 1;
+}
+
+/* Variety 4: Extra-Tall right-curving blade (Medium green) */
+.grass-blade:nth-child(6n+4) {
+  height: 27px;
+  width: 4.5px;
+  background-color: #4caf50;
+  border-top-right-radius: 100% 120%;
+  border-top-left-radius: 0% 0%;
+  border-bottom-left-radius: 100% 30%;
+  transform: rotate(12deg) skewX(15deg) scale(1.1);
+  z-index: 4;
+}
+
+/* Variety 5: Medium-Tall left-curving blade (Dark green) */
+.grass-blade:nth-child(6n+5) {
+  height: 21px;
+  width: 3px;
+  background-color: #398439;
+  border-top-left-radius: 100% 120%;
+  border-top-right-radius: 0% 0%;
+  border-bottom-right-radius: 100% 30%;
+  transform: rotate(-14deg) skewX(-18deg) scale(1.0);
+  z-index: 2;
+}
+
+/* Variety 6: Short-Medium straight blade (Light green) */
+.grass-blade:nth-child(6n) {
+  height: 15px;
+  width: 2.5px;
+  background-color: #8dc63f;
+  border-top-left-radius: 100% 180%;
+  border-top-right-radius: 100% 180%;
+  transform: rotate(-3deg) scale(0.95);
+  z-index: 3;
+}
+
+
+/* Whimsical Minimalist Square House Silhouette (Far Left Edge) */
+.indoor-house {
+  position: absolute;
+  left: 0;
+  bottom: 25px;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 2;
+  transition: left var(--transition-smooth);
+}
+
+.house-roof {
+  position: absolute;
+  top: -30px;
+  left: -2.5px;
+  width: 125px;
+  height: 30px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: var(--coral-orange); /* bold graphic coral roof */
+  border: var(--bold-border);
+}
+
+.house-body {
+  width: 100%;
+  height: 100%;
+  background: #ffffff; /* crisp solid white wall */
+  border: var(--bold-border);
+  border-bottom: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 0px var(--text-primary);
+}
+
+.house-window {
+  width: 32px;
+  height: 32px;
+  background: var(--pastel-yellow); /* solid glowing yellow window */
+  border: 2px solid var(--text-primary);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 2px 2px 0px var(--text-primary);
+  overflow: hidden;
+}
+
+.house-window::before, .house-window::after {
+  content: '';
+  position: absolute;
+  background: var(--text-primary);
+}
+
+.house-window::before {
+  top: 0;
+  left: 14px;
+  width: 2px;
+  height: 100%;
+}
+
+.house-window::after {
+  top: 14px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+
+.house-glow {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 90%;
+  background: radial-gradient(circle at bottom, rgba(255, 252, 219, 0.4) 0%, rgba(255, 255, 255, 0) 80%);
+  opacity: 0.85;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+@media (max-width: 680px) {
+  .indoor-house {
+    left: 0; /* snaps perfectly on mobile left edge */
+  }
+}
+
+/* Rolling Mattress Container */
+.rolling-mattress {
+  position: absolute;
+  bottom: 29px; /* Raised slightly to roll exactly on top of the grass line */
+  left: 0; /* Starts exactly inside the house flush with the left viewport edge */
+  transform: translateX(0); /* Default starting state: hidden inside house */
+  opacity: 0;
+  transition: transform 6.0s cubic-bezier(0.25, 1, 0.5, 1) 0.3s, opacity 1.5s ease-out 0.3s; /* Delay translation by 300ms on roll-out */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  will-change: transform, opacity;
+  z-index: 1; /* Glides behind/out of the house */
+}
+
+/* Rolled In state (Emerges from the left-edge house and parks in exact viewport center) */
+.rolling-mattress.rolled-in {
+  transform: translateX(calc(50vw - 175px)); /* mathematically centers 350px bed */
+  opacity: 1;
+  transition: transform 6.0s cubic-bezier(0.25, 1, 0.5, 1) 0s, opacity 1.5s ease-out 0s; /* No delay when rolling in */
+}
+
+/* Custom variables for responsive couple silhouette positions */
+:root {
+  --couple-push-left: -105px;
+  --couple-push-bottom: -23px; /* perfectly stands in the grass and touches frame base */
+  --couple-cozy-bottom: -4px;  /* perfectly lays flat touching pillows and sheets */
+}
+
+@media (max-width: 768px) {
+  :root {
+    --couple-push-left: -75px;
+    --couple-push-bottom: -15px;
+    --couple-cozy-bottom: -3px;
+  }
+  .many-more-text {
+    font-size: 1.6rem;
+    top: 15px;
+  }
+}
+
+/* Cozy Seated Couple Silhouette (Starts hidden while pushing, then leaps in mid-air!) */
+.couple-silhouette-wrapper {
+  width: 170px; /* Grand upscaled couple */
+  height: 110px;
+  position: absolute;
+  bottom: var(--couple-cozy-bottom); /* Cozy base position */
+  left: 50%;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transform-origin: bottom center;
+  z-index: 5;
+  will-change: transform, opacity, left, bottom;
+  opacity: 0; /* Hidden by default while rolling in pushing */
+  pointer-events: none; /* Ignore hover tilts until hopped in */
+}
+
+.couple-silhouette {
+  width: 100%;
+  height: 100%;
+  color: var(--text-primary);
+  opacity: 1;
+}
+
+/* Cozy Couple Hop-In State (Sails through the air and lands sitting on the bed!) */
+.couple-silhouette-wrapper.hopped-in {
+  opacity: 1;
+  pointer-events: auto;
+  animation: cozyHopIn 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Once fully hopped-in, mouse tilts snap quickly for real-time parallax */
+.couple-silhouette-wrapper.hopped-in.active-parallax {
+  transition: transform 0.15s ease-out, opacity 0.5s ease-out;
+}
+
+/* Highly calibrated horizontal and vertical parabolic hop with springy landing bounce */
+@keyframes cozyHopIn {
+  0% {
+    left: var(--couple-push-left);
+    bottom: var(--couple-push-bottom);
+    transform: scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  40% {
+    /* Peak of parabolic arc jump high in the air */
+    bottom: 120px;
+    transform: scale(1.1) rotate(5deg);
+    opacity: 0; /* Keep hidden until peak */
+  }
+  45% {
+    opacity: 1; /* Crossfade in exactly at peak */
+  }
+  70% {
+    /* Squashed landing on mattress */
+    left: 50%;
+    bottom: calc(var(--couple-cozy-bottom) - 4px);
+    transform: translateX(-50%) scale(0.9) rotate(-3deg);
+  }
+  85% {
+    /* Gentle bounce back up */
+    left: 50%;
+    bottom: calc(var(--couple-cozy-bottom) + 3px);
+    transform: translateX(-50%) scale(1.05) rotate(1deg);
+  }
+  100% {
+    /* Settled state */
+    left: 50%;
+    bottom: var(--couple-cozy-bottom);
+    transform: translateX(-50%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Pushing Stick Figures Wrapper (Visible only during glide, featuring arms and legs) */
+.couple-pushing-wrapper {
+  width: 170px;
+  height: 110px;
+  position: absolute;
+  bottom: var(--couple-push-bottom);
+  left: var(--couple-push-left);
+  z-index: 5;
+  color: var(--text-primary);
+  will-change: transform, opacity;
+  opacity: 1; /* Visible by default while pushing */
+  transform: scale(0.85);
+  animation: couplePushingWalk 0.6s infinite ease-in-out;
+  transition: none; /* Snap immediately behind bed */
+}
+
+.couple-pushing-silhouette {
+  width: 100%;
+  height: 100%;
+  color: var(--text-primary);
+}
+
+/* Dynamic pushing run/stepping loop simulation */
+@keyframes couplePushingWalk {
+  0%, 100% { transform: scale(0.85) rotate(-15deg) translateY(-3px); }
+  50% { transform: scale(0.85) rotate(-11deg) translateY(-8px) translateX(2px); }
+}
+
+/* Pushing Stick Figures Hop-Out State (Launches in mid-air and crossfades to seated couple) */
+.couple-pushing-wrapper.hopped-in {
+  animation: cozyPushHopOut 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes cozyPushHopOut {
+  0% {
+    left: var(--couple-push-left);
+    bottom: var(--couple-push-bottom);
+    transform: scale(0.85) rotate(-15deg);
+    opacity: 1;
+  }
+  40% {
+    /* Peak of parabolic arc jump high in the air */
+    bottom: 120px;
+    transform: scale(0.9) rotate(5deg);
+    opacity: 1;
+  }
+  45% {
+    opacity: 0; /* Dissolve precisely at peak */
+  }
+  100% {
+    left: 50%;
+    bottom: var(--couple-cozy-bottom);
+    transform: translateX(-50%) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* Glowing Warm Camp Lantern (Camping Sticker feel) */
+.bed-lantern {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  width: 18px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.lantern-handle {
+  width: 13px;
+  height: 8px;
+  border: 2px solid var(--text-primary);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+
+.lantern-cap {
+  width: 17px;
+  height: 4px;
+  background-color: var(--text-primary);
+  border-radius: 1px;
+}
+
+.lantern-glass {
+  width: 12px;
+  height: 16px;
+  background: var(--pastel-yellow); /* solid yellow glass */
+  border-left: 2px solid var(--text-primary);
+  border-right: 2px solid var(--text-primary);
+  position: relative;
+}
+
+.lantern-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 4px var(--pastel-yellow);
+  animation: lanternFlicker 3s infinite ease-in-out;
+}
+
+@keyframes lanternFlicker {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+.lantern-base {
+  width: 15px;
+  height: 4px;
+  background-color: var(--text-primary);
+  border-radius: 1px;
+}
+
+/* Bedding layers (Chunky sticker look) */
+.mattress-bedding {
+  width: 350px;
+  height: 70px;
+  position: relative;
+}
+
+/* Luxury flat white bed frame base with outline */
+.mattress-base {
+  width: 100%;
+  height: 25px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  border: var(--bold-border);
+  border-radius: 8px;
+  box-shadow: 3px 3px 0px var(--text-primary);
+}
+
+/* Minimalist fluffy white pillows with thick borders */
+.pillow {
+  width: 80px;
+  height: 16px;
+  background: #ffffff;
+  border: 2px solid var(--text-primary);
+  border-radius: 6px;
+  position: absolute;
+  bottom: 25px;
+  box-shadow: 2px 2px 0px var(--text-primary);
+}
+
+.pillow-left {
+  left: 70px;
+}
+
+.pillow-right {
+  left: 170px;
+}
+
+/* Folded sheet strip sitting under blanket fold */
+.blanket-sheet-header {
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background-color: #ffffff;
+  border: var(--bold-border);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  z-index: 2;
+}
+
+/* Pastel lavender folded blanket duvet */
+.blanket-fold {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: var(--royal-blue); /* Cafe Robot bold royal blue blanket */
+  border: var(--bold-border);
+  border-radius: 0 0 8px 8px;
+  z-index: 2;
+}
+
+/* Gold Spoke Wheels underneath (Pop styling) */
+.mattress-wheels {
+  position: absolute;
+  bottom: -21px; /* aligns mathematically with 42px wheel diameter */
+  left: 0;
+  right: 0;
+  height: 42px;
+  pointer-events: none;
+}
+
+.wheel {
+  width: 42px;
+  height: 42px;
+  border: var(--bold-border);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  background: var(--pastel-yellow); /* Cartoon bright yellow wheels */
+  box-shadow: 3px 3px 0 var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform;
+  transition: transform 5.5s cubic-bezier(0.25, 1, 0.5, 1); /* Slower rotation transition to match rollout */
+}
+
+
+.wheel-left {
+  left: 55px; /* Balanced placement under upscaled bed base */
+}
+
+.wheel-right {
+  right: 55px;
+}
+
+/* Thin golden wheel spokes */
+.wheel-spoke {
+  position: absolute;
+  width: 100%;
+  height: 1.8px;
+  background-color: var(--gold-accent);
+  opacity: 0.85;
+}
+
+.wheel-spoke:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.wheel-spoke:nth-child(2) {
+  transform: rotate(90deg);
+}
+
+/* Default off-screen left wheel state: pre-rotated counter-clockwise */
+.rolling-mattress.rolled-out .wheel {
+  transform: rotate(-1080deg);
+}
+
+/* On-screen parked wheel state: spins to 0deg */
+.rolling-mattress.rolled-in .wheel {
+  transform: rotate(0deg);
+}
+
+/* ==========================================================================
+   Display Content Panels & Tabs
+   ========================================================================== */
+.content-panel {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.tab-pane {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  width: 100%;
+  max-width: 520px;
+  transition: 
+    display 0.5s allow-discrete, 
+    opacity 0.5s ease-out, 
+    transform 0.5s var(--transition-spring);
+  transition-behavior: allow-discrete;
+}
+
+.tab-pane.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Discrete trigger starting entry states */
+@starting-style {
+  .tab-pane.active {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tab 1: Gifts Card styles (Elegant & Whimsical)
+   -------------------------------------------------------------------------- */
+.gifts-card {
+  background: #ffffff;
+  border: var(--bold-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-offset);
+  padding: 40px 30px;
+  text-align: center;
+  transition: var(--transition-snappy);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: giftEntrance 0.6s var(--transition-spring) 0.1s;
+}
+
+@keyframes giftEntrance {
+  0% { opacity: 0; transform: scale(0.94) translateY(12px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.gifts-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-offset-hover);
+}
+
+.gifts-emoji {
+  font-size: 3.4rem;
+  margin-bottom: 5px;
+  display: inline-block;
+  animation: floatEmoji 3s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 0px var(--text-primary));
+}
+
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.08) rotate(4deg); }
+}
+
+.gifts-title {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 0px var(--pastel-yellow);
+}
+
+.gifts-text {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+
+/* --------------------------------------------------------------------------
+   Tab 2: Us Card styles (Cozy Polaroid Gallery & Timeline)
+   -------------------------------------------------------------------------- */
+.polaroid-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Horizontal side-by-side display */
+  gap: 20px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+#pane-us {
+  max-width: 850px; /* Expanded scrapbook container width for larger horizontal photos */
+}
+
+.polaroid {
+  background: white;
+  padding: 12px 12px 20px 12px; /* Classic polaroid offset bottom padding for caption text */
+  border: var(--bold-border);
+  border-radius: 12px;
+  box-shadow: 6px 6px 0px var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s var(--transition-spring), box-shadow 0.3s ease;
+  will-change: transform;
+  width: 100%;
+}
+
+.polaroid:nth-child(1) { transform: rotate(-2deg); }
+.polaroid:nth-child(2) { transform: rotate(1.5deg); }
+.polaroid:nth-child(3) { transform: rotate(-1.8deg); }
+
+.polaroid:hover {
+  transform: translateY(-8px) rotate(0deg) scale(1.05);
+  box-shadow: 8px 8px 0px var(--text-primary);
+  z-index: 2;
+}
+
+.polaroid-image,
+.polaroid-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover; /* Crop uploaded images into perfect zine squares */
+  background: #fffde6; /* bright retro cream */
+  border: 2px solid var(--text-primary);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2rem;
+}
+
+.polaroid-caption {
+  margin-top: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+/* Timeline Components */
+.timeline-container {
+  background: #ffffff;
+  border: var(--bold-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-offset);
+  padding: 30px 28px;
+}
+
+.panel-section-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 900;
+  margin-bottom: 22px;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 0px var(--pastel-yellow);
+  text-align: center;
+}
+
+.timeline-list {
+  list-style: none;
+  position: relative;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 2.5px;
+  background-color: var(--text-primary);
+}
+
+.timeline-list li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -21px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--magical-violet);
+  border-radius: 50%;
+  border: 2px solid var(--text-primary);
+}
+
+.timeline-time {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--coral-orange);
+  text-transform: uppercase;
+}
+
+.timeline-event {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+
+/* --------------------------------------------------------------------------
+   Tab 3: 3 Years Milestone Stats styles
+   -------------------------------------------------------------------------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  width: 100%;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: var(--bold-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-offset);
+  padding: 28px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: var(--transition-snappy);
+}
+
+.stat-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-offset-hover);
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--royal-blue);
+  line-height: 1.1;
+  text-shadow: 2px 2px 0px var(--pastel-yellow);
+}
+
+.stat-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.milestones-letter {
+  max-width: 580px;
+  margin: 30px auto 0 auto; /* Added 30px top margin to shift text down slightly */
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #000000;
+  padding: 10px;
+  animation: diaryEntrance 0.6s var(--transition-spring) 0.1s;
+}
+
+.milestones-letter p {
+  margin: 0 0 20px 0;
+}
+
+.milestones-letter .signature {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 700;
+  margin-top: 30px;
+  color: #000000;
+  line-height: 1.5;
+}
+
+
+/* /* --------------------------------------------------------------------------
+   For Carolina Tab Special Styles
+   -------------------------------------------------------------------------- */
+#pane-carolina {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+  transition: 
+    display 0.5s allow-discrete, 
+    opacity 0.5s ease-out, 
+    transform 0.5s var(--transition-spring);
+  transition-behavior: allow-discrete;
+}
+
+#pane-carolina.active {
+  display: flex;
+}
+
+.main-greeting-container {
+  text-align: center;
+  margin: 40px auto 15px auto;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: greetingFadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards 0.2s;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s ease-out, visibility 0.5s, margin 0.5s;
+  will-change: opacity, transform;
+}
+
+/* Collapses cleanly when viewing active tabs */
+.main-greeting-container.hidden-greeting {
+  display: none !important;
+}
+
+.greeting-hero-text {
+  font-family: var(--font-serif);
+  font-size: 5rem; /* Exaggerated grand retro text */
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-shadow: 4px 4px 0px var(--sky-blue);
+
+}
+
+
+@keyframes greetingFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Celestial Twinkling Sky Stars (Exaggerated, grand scale)
+   -------------------------------------------------------------------------- */
+.celestial-sky {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px; /* Taller sky */
+  height: 180px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sky-star {
+  position: absolute;
+  color: var(--pastel-yellow);
+  text-shadow: 
+    0 0 6px rgba(251, 197, 49, 0.6), /* Whimsical golden glow */
+    2px 2px 0px var(--text-primary); /* Bold zine outline shadow */
+  user-select: none;
+  pointer-events: none;
+  display: inline-block; /* Enable transforms for scaling animation */
+}
+
+.star-xl { font-size: 2.6rem; }
+.star-lg { font-size: 1.9rem; }
+.star-md { font-size: 1.4rem; }
+.star-sm { font-size: 0.9rem; }
+
+/* Custom positions above the center-right parked mattress area (20 stars cluster) */
+.twinkling-star-1 { top: 5%; left: 45%; animation: starTwinkle 3.2s ease-in-out infinite; }
+.twinkling-star-2 { top: 22%; left: 54%; animation: starTwinkle 4.5s ease-in-out infinite 0.7s; }
+.twinkling-star-3 { top: 12%; left: 63%; animation: starTwinkle 2.8s ease-in-out infinite 1.2s; }
+.twinkling-star-4 { top: 38%; left: 72%; animation: starTwinkle 3.8s ease-in-out infinite 0.3s; }
+.twinkling-star-5 { top: 5%; left: 80%; animation: starTwinkle 5.0s ease-in-out infinite 1.5s; }
+.twinkling-star-6 { top: 28%; left: 88%; animation: starTwinkle 3.5s ease-in-out infinite 0.9s; }
+.twinkling-star-7 { top: 48%; left: 51%; animation: starTwinkle 3.0s ease-in-out infinite 0.5s; }
+.twinkling-star-8 { top: 58%; left: 61%; animation: starTwinkle 4.0s ease-in-out infinite 1.1s; }
+.twinkling-star-9 { top: 52%; left: 78%; animation: starTwinkle 3.3s ease-in-out infinite 0.6s; }
+.twinkling-star-10 { top: 42%; left: 85%; animation: starTwinkle 4.8s ease-in-out infinite 1.4s; }
+.twinkling-star-11 { top: 25%; left: 40%; animation: starTwinkle 3.6s ease-in-out infinite 0.2s; }
+.twinkling-star-12 { top: 68%; left: 69%; animation: starTwinkle 4.2s ease-in-out infinite 0.8s; }
+.twinkling-star-13 { top: 14%; left: 32%; animation: starTwinkle 3.4s ease-in-out infinite 0.4s; }
+.twinkling-star-14 { top: 32%; left: 48%; animation: starTwinkle 4.1s ease-in-out infinite 1.1s; }
+.twinkling-star-15 { top: 8%; left: 58%; animation: starTwinkle 2.9s ease-in-out infinite 0.5s; }
+.twinkling-star-16 { top: 45%; left: 66%; animation: starTwinkle 3.7s ease-in-out infinite 1.3s; }
+.twinkling-star-17 { top: 18%; left: 75%; animation: starTwinkle 4.8s ease-in-out infinite 0.2s; }
+.twinkling-star-18 { top: 62%; left: 82%; animation: starTwinkle 3.1s ease-in-out infinite 0.9s; }
+.twinkling-star-19 { top: 25%; left: 92%; animation: starTwinkle 4.3s ease-in-out infinite 0.6s; }
+.twinkling-star-20 { top: 55%; left: 44%; animation: starTwinkle 3.9s ease-in-out infinite 1.0s; }
+
+@keyframes starTwinkle {
+  0%, 100% { 
+    opacity: 0.2; 
+    transform: scale(0.75) rotate(0deg); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.4) rotate(25deg); /* Dynamic popping rotation scale */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tab 3: Dining Diary Section
+   -------------------------------------------------------------------------- */
+.dining-diary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two quadrants side-by-side */
+  gap: 20px;
+  width: 100%;
+}
+
+#pane-dining {
+  max-width: 650px; /* Expand active dining container width */
+}
+
+.diary-card {
+  border: var(--bold-border);
+  border-radius: 18px;
+  box-shadow: 4px 4px 0px var(--text-primary);
+  padding: 24px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-snappy);
+  animation: diaryEntrance 0.6s var(--transition-spring) 0.1s;
+}
+
+/* Individual vibrant pastel colors for each card to match pop sticker feel */
+.diary-card:nth-child(1) { background-color: var(--pastel-pink); }
+.diary-card:nth-child(2) { background-color: #fffde6; }
+.diary-card:nth-child(3) { background-color: #e3f2fd; }
+
+@keyframes diaryEntrance {
+  0% { opacity: 0; transform: scale(0.94) translateY(12px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.diary-card:hover {
+  transform: translate(2px, 2px) rotate(1deg);
+  box-shadow: 2px 2px 0px var(--text-primary);
+}
+
+.diary-photo {
+  width: 100%;
+  height: 150px;
+  background: #ffffff;
+  border: var(--bold-border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 0px var(--text-primary);
+  margin-bottom: 8px;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.diary-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.diary-card:hover .diary-photo {
+  transform: scale(1.03) rotate(-2deg);
+}
+
+.diary-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--text-primary);
+}
+
+.diary-caption {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+
+@media (max-width: 600px) {
+  .dining-diary {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 600px) {
+  .home-navbar {
+    height: auto;
+    padding: 12px 16px;
+  }
+  .nav-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .home-section {
+    padding: 140px 16px 40px 16px;
+  }
+  .polaroid-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .polaroid:nth-child(even), .polaroid:nth-child(odd) {
+    transform: rotate(0deg);
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .stat-card {
+    padding: 20px;
+  }
+  
+  /* Mobile Piece Scales (Preventing overflows while preserving layout magic) */
+  .centerpiece-wrapper {
+    height: 250px;
+  }
+  
+  .indoor-house {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .house-roof {
+    top: -20px;
+    width: 84px;
+    height: 20px;
+  }
+  
+  .house-window {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .mattress-bedding {
+    width: 240px; /* scaled down for phone screens */
+    height: 48px;
+  }
+  
+  .pillow {
+    width: 54px;
+    height: 10px;
+    bottom: 18px;
+  }
+  
+  .pillow-left { left: 48px; }
+  .pillow-right { left: 118px; }
+  
+  .couple-silhouette-wrapper,
+  .couple-pushing-wrapper {
+    width: 110px;
+    height: 80px;
+    bottom: var(--couple-cozy-bottom);
+  }
+  
+  .wheel {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .mattress-wheels {
+    bottom: -15px;
+    height: 30px;
+  }
+  
+  .wheel-left { left: 36px; }
+  .wheel-right { right: 36px; }
+  
+  .bed-lantern {
+    bottom: 18px;
+    right: 15px;
+    width: 14px;
+    height: 24px;
+  }
+  
+  /* Update rolled-in translate math for mobile centered mattress */
+  .rolling-mattress.rolled-in {
+    transform: translateX(calc(50vw - 120px));
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 38px 24px;
+    border-radius: 20px;
+  }
+  .greeting-title {
+    font-size: 2.5rem;
+  }
+  .success-title {
+    font-size: 2rem;
+  }
+}
+
+/* Support Users with Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  .app-background,
+  .glow-orb,
+  .floating-accent,
+  .success-emoji,
+  .success-glow,
+  .gift-box-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .card, 
+  .login-card, 
+  .success-card,
+  .home-section,
+  .tab-pane,
+  .polaroid,
+  .rolling-mattress,
+  .couple-silhouette-wrapper,
+  .wheel {
+    transition: opacity 0.2s ease-in-out !important;
+    transform: none !important;
+  }
+
+  @starting-style {
+    .login-card, 
+    .success-card,
+    .home-section,
+    .tab-pane {
+      opacity: 0;
+      transform: none !important;
+    }
+  }
+
+  .login-card.hidden,
+  .success-card.hidden,
+  .home-section.hidden {
+    opacity: 0;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Synchronous Session Login Bypass Overrides (Flash Prevention)
+   ========================================================================== */
+html.session-logged-in #login-container {
+  display: none !important;
+}
+html.session-logged-in #home-section {
+  display: flex !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Synchronous tab overrides to prevent loading jumps/flashes (Bug fix) */
+html.tab-us #pane-us,
+html.tab-dining #pane-dining,
+html.tab-milestones #pane-milestones {
+  display: block !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+html.tab-us .main-greeting-container,
+html.tab-dining .main-greeting-container,
+html.tab-milestones .main-greeting-container {
+  display: none !important;
+}
+
+/* Mobile responsive horizontal polaroid grid overrides */
+@media (max-width: 768px) {
+  #pane-us .polaroid-gallery {
+    grid-template-columns: 1fr !important;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 20px;
+  }
+}

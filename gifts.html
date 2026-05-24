@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carolina's Special Anniversary Surprises. Four beautiful gifts.">
+  <title>Your Surprises - For Carolina</title>
+
+  <!-- Google Fonts for refined retro typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Link stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/gifts.css">
+</head>
+<body>
+
+  <!-- Shifting Dotted coordinate Grid Background -->
+  <div class="app-background">
+    <canvas id="fun-canvas"></canvas>
+  </div>
+
+  <!-- Parallax cartoon stickers in background -->
+  <div class="floating-accent accent-1" data-depth="0.12" aria-hidden="true">✦</div>
+  <div class="floating-accent accent-2" data-depth="0.25" aria-hidden="true">🏺</div>
+  <div class="floating-accent accent-3" data-depth="0.18" aria-hidden="true">✨</div>
+  <div class="floating-accent accent-4" data-depth="0.30" aria-hidden="true">✦</div>
+  <div class="floating-accent accent-5" data-depth="0.08" aria-hidden="true">👜</div>
+
+  <!-- Main Container -->
+  <main class="gifts-page-container">
+    
+    <!-- Floating Minimalist Navbar -->
+    <header class="home-navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">For Carolina</a>
+        <nav class="nav-links">
+          <a href="gifts.html" class="nav-tab active" data-tab="gifts">Gifts</a>
+          <a href="index.html?tab=us" class="nav-tab" data-tab="us">Through the Years</a>
+          <a href="index.html?tab=dining" class="nav-tab" data-tab="dining">Dining</a>
+          <a href="index.html?tab=milestones" class="nav-tab" data-tab="milestones">3 Years</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Quadrants Section -->
+    <section class="stickers-section">
+
+      <div class="gifts-grid-quadrants">
+        
+        <!-- Quadrant 1: Top Left - Pottery Date -->
+        <div class="sticker-card" id="sticker-card-1">
+          <div class="sticker-peel-layer" title="Click to peel sticker!">
+            <div class="sticker-badge-circle" style="background-color: var(--pastel-yellow);">
+              <span class="sticker-emoji">🏺</span>
+            </div>
+          </div>
+          <div class="sticker-reveal-card">
+            <h3 class="reveal-title">Pottery Date</h3>
+            <span class="reveal-subtitle">Saturday, May 30th</span>
+          </div>
+        </div>
+
+        <!-- Quadrant 2: Top Right - Fun lil bag -->
+        <div class="sticker-card" id="sticker-card-2">
+          <div class="sticker-peel-layer" title="Click to peel sticker!">
+            <div class="sticker-badge-circle" style="background-color: var(--magical-violet);">
+              <span class="sticker-emoji">👜</span>
+            </div>
+          </div>
+          <div class="sticker-reveal-card">
+            <h3 class="reveal-title">Fun Lil Bag</h3>
+          </div>
+        </div>
+
+        <!-- Quadrant 3: Bottom Left - Tea For Two -->
+        <div class="sticker-card" id="sticker-card-3">
+          <div class="sticker-peel-layer" title="Click to peel sticker!">
+            <div class="sticker-badge-circle" style="background-color: var(--coral-orange);">
+              <span class="sticker-emoji">☕</span>
+            </div>
+          </div>
+          <div class="sticker-reveal-card">
+            <h3 class="reveal-title">Tea For Two</h3>
+            <span class="reveal-subtitle">Check the stove</span>
+          </div>
+        </div>
+
+        <!-- Quadrant 4: Bottom Right - Vase -->
+        <div class="sticker-card" id="sticker-card-4">
+          <div class="sticker-peel-layer" title="Click to peel sticker!">
+            <div class="sticker-badge-circle" style="background-color: var(--sky-blue);">
+              <span class="sticker-emoji">💐</span>
+            </div>
+          </div>
+          <div class="sticker-reveal-card">
+            <h3 class="reveal-title">Flowers in a Cube</h3>
+            <span class="reveal-subtitle">Reminds me of your favorite food</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Link Javascript files -->
+  <script src="js/gifts.js"></script>
+</body>
+</html>
